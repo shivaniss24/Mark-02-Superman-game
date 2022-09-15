@@ -1,59 +1,72 @@
 var readlinesync=require('readline-sync');
 var score=0;
+
+//data of high score
+var highscore=[{
+  name:"shivani",
+  score:"5",
+},
+{
+  name:"Tanay",
+    score:"6",
+}]
+
+//array of objects
+var questions=[
+  {
+  question:"Where do i live?: ",
+  answer:"Aron",
+  },
+  {
+   question:"My superhero would be?: ",
+   answer:"Thor",
+  },
+  {
+    question:"Where do i work?: ",
+    answer:"Somewhere",
+  },
+  {
+    question:"Do you like movies",
+    answer:"Yes",
+  },
+]
+function welcome()
+  {
+    var username=readlinesync.question("What's your name: ");
+    console.log("Welcome "+username+" Do you know tanay? ");
+  }
+//play function
 function play(question,answer)
   {
-  var username=readlinesync.question("what is your name? ");
-    console.log("welcome "+username);
-    var userAge=readlinesync.question(question);
-    if(userAge===answer)
+    var userAnswer=readlinesync.question(question);
+    if (userAnswer.toUpperCase() === answer.toUpperCase())
     {
-      console.log("you are right!");
+      console.log("Right!");
       score=score+1;
     }
     else{
-      console.log("you are wrong!");
-      score=score-1;
+      console.log("Wrong!");
     }
-   
-    console.log(score);
+    console.log("Current score is: "+score);
+    console.log("------------------------");
   }
-play("Are you older than 25? ","yes");
-console.log("what kind of food's do you like?");
-var foodItems=[];
-var size=1;
-for(var i=0;i<size;i++)
-  {
-    foodItems[i]=prompt("Enter array elements: "+i);
-  }
-    console.log(foodItems);
-// console.log("do you like superheros? ")
-
-
-var superman={
-  name:"shivani",
-  costume:"red"
-}
-var batman={
-  name:"anusha",
-  costume:"blue"
-}
-var superheros=[superman,batman];
-function game(question,answer)
-  {
-   var userVal=readlinesync.question(question);
-    if(userVal===answer)
+//game function
+function game()
     {
-      console.log("you  are already a superhero!");
-      
+      for(var i=0;i<questions.length;i++)
+        {
+          var currentQuestion=questions[i];
+          play(currentQuestion.question,currentQuestion.answer);
+        }
     }
-    else{
-    console.log("you are normal human!")
-    }
-      }
-game("which superhero do you like: ","superman");
-
-game("which superhero do you like the most: ","batman");
-
+//show scores function
+function showScores()
+  {
+    console.log("yay! you scored: "+score);
+    console.log("Check out the high scores,if you should be there ping me and i will update it");
+    highscore.map(score => console.log(score.name, " : ", score.score));
     
-  
-
+  }
+welcome();
+game();
+showScores();
